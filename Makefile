@@ -30,10 +30,8 @@ lint:
 .PHONY: adddep
 adddep:
 	go mod tidy -v
-	go mod vendor
 
 .PHONY: updatedeps
 updatedeps:
 	go get -u ./...
 	go mod tidy -v
-	go mod vendor
