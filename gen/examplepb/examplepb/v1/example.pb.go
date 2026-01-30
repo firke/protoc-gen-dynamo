@@ -7,7 +7,7 @@
 package v1
 
 import (
-	_ "github.com/pquerna/protoc-gen-dynamo/gen/dynamo/v1"
+	_ "github.com/firke/protoc-gen-dynamo/gen/dynamo/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	_ "google.golang.org/protobuf/types/gofeaturespb"
@@ -1690,7 +1690,7 @@ const file_examplepb_v1_example_proto_rawDesc = "" +
 	"\tBasicEnum\x12\x1a\n" +
 	"\x16BASIC_ENUM_UNSPECIFIED\x10\x00\x12\x14\n" +
 	"\x10BASIC_ENUM_FIRST\x10\x01\x12\x15\n" +
-	"\x11BASIC_ENUM_SECOND\x10\x02BIZ?github.com/pquerna/protoc-gen-dynamo/gen/examplepb/examplepb/v1\x92\x03\x05\xd2>\x02\x10\x03b\beditionsp\xe8\a"
+	"\x11BASIC_ENUM_SECOND\x10\x02BIZ?github.com/firke/protoc-gen-dynamo/gen/examplepb/examplepb/v1\x92\x03\x05\xd2>\x02\x10\x03b\beditionsp\xe8\a"
 
 var file_examplepb_v1_example_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_examplepb_v1_example_proto_msgTypes = make([]protoimpl.MessageInfo, 4)

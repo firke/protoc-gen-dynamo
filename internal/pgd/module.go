@@ -10,7 +10,7 @@ import (
 	pgs "github.com/lyft/protoc-gen-star/v2"
 	pgsgo "github.com/lyft/protoc-gen-star/v2/lang/go"
 
-	dynamopb "github.com/pquerna/protoc-gen-dynamo/gen/dynamo/v1"
+	dynamopb "github.com/firke/protoc-gen-dynamo/gen/dynamo/v1"
 )
 
 const (
@@ -75,7 +75,7 @@ const (
 	stringsPkg   = "strings"
 	fmtPkg       = "fmt"
 	timePkg      = "time"
-	protozstdPkg = "github.com/pquerna/protoc-gen-dynamo/pkg/protozstd"
+	protozstdPkg = "github.com/firke/protoc-gen-dynamo/pkg/protozstd"
 	xxhashPkg    = "github.com/cespare/xxhash/v2"
 
 	timestampType = "google.protobuf.Timestamp"

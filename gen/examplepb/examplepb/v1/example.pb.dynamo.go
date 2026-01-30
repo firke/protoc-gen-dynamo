@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
 	"github.com/cespare/xxhash/v2"
-	"github.com/pquerna/protoc-gen-dynamo/pkg/protozstd"
+	"github.com/firke/protoc-gen-dynamo/pkg/protozstd"
 	"strconv"
 	"strings"
 	"time"

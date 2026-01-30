@@ -1,7 +1,7 @@
 version: v2
 modules:
   - path: proto
-    name: buf.build/pquerna/protoc-gen-dynamo
+    name: buf.build/firkeorg/protoc-gen-dynamo
   - path: examples/examplepb
   - path: examples/badshardconfigpb
 lint:

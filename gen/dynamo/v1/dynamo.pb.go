@@ -389,7 +389,7 @@ const file_dynamo_v1_dynamo_proto_rawDesc = "" +
 	"\tunix_nano\x18\xae\x02 \x01(\bR\bunixNano:S\n" +
 	"\x03msg\x12\x1f.google.protobuf.MessageOptions\x18\xf0. \x01(\v2\x1f.dynamo.v1.DynamoMessageOptionsR\x03msg:S\n" +
 	"\x05field\x12\x1d.google.protobuf.FieldOptions\x18\xf0. \x01(\v2\x1d.dynamo.v1.DynamoFieldOptionsR\x05fieldB\x95\x01\n" +
-	"\rcom.dynamo.v1B\vDynamoProtoP\x01Z2github.com/pquerna/protoc-gen-dynamo/gen/dynamo/v1\xa2\x02\x03DXX\xaa\x02\tDynamo.V1\xca\x02\tDynamo\\V1\xe2\x02\x15Dynamo\\V1\\GPBMetadata\xea\x02\n" +
+	"\rcom.dynamo.v1B\vDynamoProtoP\x01Z2github.com/firke/protoc-gen-dynamo/gen/dynamo/v1\xa2\x02\x03DXX\xaa\x02\tDynamo.V1\xca\x02\tDynamo\\V1\xe2\x02\x15Dynamo\\V1\\GPBMetadata\xea\x02\n" +
 	"Dynamo::V1b\x06proto3"
 
 var (

@@ -4,7 +4,7 @@ package dynamo.v1;
 
 import "google/protobuf/descriptor.proto";
 
-option go_package = "github.com/pquerna/protoc-gen-dynamo/gen/dynamo/v1";
+option go_package = "github.com/firke/protoc-gen-dynamo/dynamo/v1";
 
 // TODO(pquerna): register here
 // https://github.com/protocolbuffers/protobuf/blob/master/docs/options.md

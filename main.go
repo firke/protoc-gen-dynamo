@@ -3,7 +3,7 @@ package main
 import (
 	pgs "github.com/lyft/protoc-gen-star/v2"
 	pgsgo "github.com/lyft/protoc-gen-star/v2/lang/go"
-	"github.com/pquerna/protoc-gen-dynamo/internal/pgd"
+	"github.com/firke/protoc-gen-dynamo/internal/pgd"
 	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/types/pluginpb"
 )

@@ -6,7 +6,7 @@ functions are interfaces in the AWS SDK for Go for serializing between Go and Am
 
 ## Contributions Welcome!
 
-Please [open issues in Github](https://github.com/pquerna/protoc-gen-dynamo/issues) for pull requests, ideas, bugs, and 
+Please [open issues in Github](https://github.com/firke/protoc-gen-dynamo/issues) for pull requests, ideas, bugs, and 
 general thoughts. Today the project today is focused on Go, but other languages are welcome!
 
 ## Features
@@ -19,35 +19,34 @@ general thoughts. Today the project today is focused on Go, but other languages 
 ## Installing `protoc-gen-dynamo`
 
 ```
-go install -mod=vendor github.com/pquerna/protoc-gen-dynamo
+go install github.com/firke/protoc-gen-dynamo@latest
 ```
 
 ## Using `protoc-gen-dynamo`
 
-- Include `dynamo.proto` in your protobuf compiler include path.  
+- Include `dynamo/v1/dynamo.proto` in your protobuf compiler include path.
 
 ### Annotations
 
-See the [dynamo.proto](./dynamo/dynamo.proto) for all possible annotations.
+See the [dynamo.proto](./proto/dynamo/v1/dynamo.proto) for all possible annotations.
 
-#### `dynamo` Annotations on Protobuf Messages
+#### `dynamo.v1.msg` Annotations on Protobuf Messages
 
-- `dynamo.disabled = <bool>`: Disables generation of DynamoDB Marshalling for this message.
+- `dynamo.v1.msg.disabled = <bool>`: Disables generation of DynamoDB Marshalling for this message.
+- `dynamo.v1.msg.key`: Defines partition and sort key fields. Multiple keys create GSIs.
+  - `pk_fields`: List of field names for the partition key
+  - `sk_fields`: List of field names for the sort key
+  - `sk_const`: Constant string value for sort key (alternative to sk_fields)
+  - `shard`: Sharding options (`enabled`, `shard_count`)
 
-#### `dynamo` Annotations on Protobuf Fields
+#### `dynamo.v1.field` Annotations on Protobuf Fields
 
-- `dynamo.skip = <bool>`: Skips serializing and de-serializing this field.
-- `dynamo.name = <string>`: Sets the name of the field as stored in DynamoDB
-- `dynamo.type.binary = <bool>`: The field uses the protobuf native binary format, and is encoded into DynamoDB's Binary 
-type as a base64 string. The `binary` annotation can be used on any field.
-- `dynamo.type.set = <bool>`: Set this field to be a String Set, Number Set, or Binary Set instead of a List.  Only 
-valid on `repeated` protobuf fields.
-- `dynamo.type.unix_second = <bool>`: Set this field to be a Number with the number of seconds since the unix 
-epoch.  Only valid for `google.protobuf.Timestamp` protobuf type.
-- `dynamo.type.unix_milli = <bool>`: Set this field to be a Number with the number of milliseconds (MS) since the unix 
-epoch.  Only valid for `google.protobuf.Timestamp` protobo type.
-- `dynamo.type.unix_nano = <bool>`: Set this field to be a Number with the number of nanoseconds (NS) since the unix 
-epoch.  Only valid for `google.protobuf.Timestamp` protobuf type.
+- `dynamo.v1.field.expose = <bool>`: Exposes this field as a top-level DynamoDB attribute.
+- `dynamo.v1.field.name = <string>`: Sets the name of the field as stored in DynamoDB.
+- `dynamo.v1.field.type.set = <bool>`: Set this field to be a String Set, Number Set, or Binary Set instead of a List. Only valid on `repeated` protobuf fields.
+- `dynamo.v1.field.type.unix_second = <bool>`: Set this field to be a Number with the number of seconds since the unix epoch. Only valid for `google.protobuf.Timestamp` protobuf type.
+- `dynamo.v1.field.type.unix_milli = <bool>`: Set this field to be a Number with the number of milliseconds since the unix epoch. Only valid for `google.protobuf.Timestamp` protobuf type.
+- `dynamo.v1.field.type.unix_nano = <bool>`: Set this field to be a Number with the number of nanoseconds since the unix epoch. Only valid for `google.protobuf.Timestamp` protobuf type.
 
 ### Mapping Protocol Buffer types to DynamoDB Types
 
@@ -99,54 +98,39 @@ annotation can be used to serialize the duration as a protobuf binary format.
 ## Example
 
 ```protobuf
+edition = "2023";
 
-syntax = "proto3";
+package examplepb.v1;
 
-package examplepb;
-
-import "dynamo/dynamo.proto";
+import "dynamo/v1/dynamo.proto";
+import "google/protobuf/timestamp.proto";
 
 message Store {
-  option [(dynamo.primary) = {
-        name: "pk",
-        prefix: "store",
-        fields: ["id"],
-  }];
+  option (dynamo.v1.msg).key = {
+    pk_fields: ["id"]
+    sk_fields: ["country", "region", "state", "city"]
+  };
 
-  option [(dynamo.sort) = {
-        name: "sk",
-        fields: ["country", "region", "state", "city", "id"],
-  }];
-
-  string id = 1 [(dynamo.name) = "store_id"];
-
-  string country  = 2;
-  string region   = 3;
-  string state    = 4;
-  string city     = 5;
-
+  string id = 1 [(dynamo.v1.field).expose = true, (dynamo.v1.field).name = "store_id"];
+  string country = 2;
+  string region = 3;
+  string state = 4;
+  string city = 5;
   bool closed = 6;
-
-  google.protobuf.Timestamp opening_date = 7 [(dynamo.type).unix_seconds = true];
-
-  repeated string best_employee_ids 8 [(dynamo.type).set = true];
+  google.protobuf.Timestamp opening_date = 7 [(dynamo.v1.field).type.unix_second = true];
+  repeated string best_employee_ids = 8 [(dynamo.v1.field).type.set = true];
 }
 ```
 
-When serialized, this will generate the following DynamodDB Attributes:
-```json
+When serialized, this will generate the following DynamoDB Attributes:
 
+```json
 {
-  "pk": {"S": "stores:best-buy"},
-  "sk": {"S": "united_states:west:california:concord:1234"}, 
-  "store_id": {"S":  "1234"},
-  "country": {"S":  "united_states"},
-  "region": {"S":  "west"},
-  "state": {"S":  "california"},
-  "city": {"S":  "concord"},
-  "closed": {"B": false},
-  "opening_date": {"N":  "1585453283"},
-  "best_employee_ids": {"SS": [,"AAA", "BBB", "CCC"}
+  "pk": {"S": "examplepb_store:1234"},
+  "sk": {"S": "united_states:west:california:concord"},
+  "store_id": {"S": "1234"},
+  "value": {"B": "<zstd-compressed protobuf binary>"},
+  "typ": {"S": "examplepb.Store"}
 }
 ```
 

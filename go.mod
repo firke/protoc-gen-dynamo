@@ -1,4 +1,4 @@
-module github.com/pquerna/protoc-gen-dynamo
+module github.com/firke/protoc-gen-dynamo
 
 go 1.24.0
 
