@@ -4,7 +4,7 @@ package badshardconfig.v1;
 
 import "dynamo/v1/dynamo.proto";
 
-option go_package = "github.com/pquerna/protoc-gen-dynamo/badshardconfig/v1";
+option go_package = "github.com/pquerna/protoc-gen-dynamo/gen/badshardconfigpb/badshardconfig/v1";
 
 // This file contains various bad sharding configurations to test validation.
 // Since protoc stops at the first validation error, to test each case:

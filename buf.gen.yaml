@@ -1,7 +1,7 @@
-version: v1
+version: v2
 managed:
   enabled: true
 plugins:
-  - name: go
-    out: .
+  - local: protoc-gen-go
+    out: gen
     opt: paths=source_relative

@@ -1,9 +1,8 @@
-version: v1
+version: v2
 plugins:
-  - name: go
-    out: example
+  - local: protoc-gen-go
+    out: gen/examplepb
     opt: paths=source_relative
-  - name: dynamo
-    out: example
+  - local: ./build/protoc-gen-dynamo
+    out: gen/examplepb
     opt: paths=source_relative
-    path: ./build/protoc-gen-dynamo

@@ -7,7 +7,7 @@ import "google/protobuf/go_features.proto";
 import "google/protobuf/timestamp.proto";
 
 option features.(pb.go).api_level = API_OPAQUE;
-option go_package = "github.com/pquerna/protoc-gen-dynamo/examplepb/v1";
+option go_package = "github.com/pquerna/protoc-gen-dynamo/gen/examplepb/examplepb/v1";
 
 message Store {
   option (dynamo.v1.msg).key = {
@@ -87,8 +87,9 @@ message User {
 }
 
 enum BasicEnum {
-  First = 0;
-  Second = 1;
+  BASIC_ENUM_UNSPECIFIED = 0;
+  BASIC_ENUM_FIRST = 1;
+  BASIC_ENUM_SECOND = 2;
 }
 
 message StoreV2 {

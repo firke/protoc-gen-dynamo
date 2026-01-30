@@ -1,9 +1,8 @@
-version: v1
+version: v2
 plugins:
-  - name: go
-    out: badshardtest
+  - local: protoc-gen-go
+    out: gen/badshardconfigpb
     opt: paths=source_relative
-  - name: dynamo
-    out: badshardtest
+  - local: ./build/protoc-gen-dynamo
+    out: gen/badshardconfigpb
     opt: paths=source_relative
-    path: ./build/protoc-gen-dynamo

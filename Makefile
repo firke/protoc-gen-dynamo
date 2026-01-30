@@ -12,11 +12,11 @@ generate:
 
 .PHONY: example
 example: build
-	buf --debug generate --template buf.example.gen.yaml --path examplepb/v1
+	buf --debug generate --template buf.example.gen.yaml --path examples/examplepb/examplepb/v1
 
-.PHONE: badshardtest
-badshardtest:
-	buf --debug generate --template buf.badshardtest.gen.yaml --path badshardconfigpb/v1
+.PHONY: badshardtest
+badshardtest: build
+	buf --debug generate --template buf.badshardtest.gen.yaml --path examples/badshardconfigpb/badshardconfig/v1
 
 .PHONY: fmt
 fmt:
@@ -24,7 +24,7 @@ fmt:
 
 .PHONY: lint
 lint:
-	buf lint ./proto
+	buf lint
 
 
 .PHONY: adddep
