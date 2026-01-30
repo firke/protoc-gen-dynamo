@@ -1,7 +1,7 @@
 # protoc-gen-dynamo: Storing protobuf objects in Amazon DynamoDB
 
 `protoc-gen-dynamo` is used to generate Go ('golang') code for storing objects inside Amazon DynamoDB.  It works by 
-generating code for `MarshalDyanmo*` and `UnmarshalDynamo*` functions based on a Protocol Buffer message.  These 
+generating code for `MarshalDynamo*` and `UnmarshalDynamo*` functions based on a Protocol Buffer message.  These 
 functions are interfaces in the AWS SDK for Go for serializing between Go and Amazon DynamoDB.
 
 ## Contributions Welcome!
